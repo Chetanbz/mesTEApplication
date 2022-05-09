@@ -1,0 +1,46 @@
+.Body{
+    margin: 5px;
+    padding: 5px;
+}
+
+#UserIDInfo,#UserNameInfo,#checkBoxSelection{
+    align-items: left;
+    margin: 5px;
+    padding: 5px;
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+
+
+#Application_Selection{
+    margin: 5px;
+    padding: 5px;
+    font-size: 17px;
+    
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+#app_Selection,#Colleague_Id{
+   vertical-align: center;
+}
+
+#Colleague_Id_Selection,#ColleagueNameInfo{
+    margin: 5px;
+    padding: 5px;
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.Submit{
+    background-color: skyblue; /* Green */
+    border: 3px solid violet;
+    border-radius: 5px;
+    color: black;
+    padding: 5px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
