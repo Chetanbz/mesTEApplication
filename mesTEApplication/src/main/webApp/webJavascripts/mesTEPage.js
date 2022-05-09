@@ -1,9 +1,12 @@
+//Declaring class varables which are DOM attributes
 var userId = "";
 var userName = "" ;
 var is_Terminal_User_flag = 0 ;   // Default set is as false
 var is_application_selected_flag = 0 ;
-var package = "" 
-
+var packageInitialize = "<option>Select Package</option><option value='SelectAll'>Select All</option>";
+var applicationInitialize = "<option>Select Application</option><option value='SelectAll'>Select All</option>";
+var package = ""
+var application = ""
 var package_selected = "" ;
 
 var collegueId = "";
@@ -12,10 +15,14 @@ var final_application_list = [];
 
 //document.getElementById("SubmitButton").addEventListener("click", submit);
 
+// sumit form called ajax related to create rquest called from here
 function submitForm(){
     alert("How are you");
     setDetails();
 }
+
+// this wll set final application list which will be passed while creating request.
+
 
 function applicationSelected(){
     if (is_application_selected_flag == 0){
@@ -26,20 +33,73 @@ function applicationSelected(){
 }
 
 window.onload = function(){
-    var selection = 1;
-    package = "" 
-    document.getElementById("Application_Selection").style.display = "block"
-    document.getElementById("Colleague_Id_Selection").style.display = "none" 
-    getPackage();
-    document.getElementById("package_Selection").innerHTML = package
+    //var selection = 1;
+    //document.getElementById("Application_Selection").style.display = "block"
+    //document.getElementById("Colleague_Id_Selection").style.display = "none" 
+    display(1);
+    getPackageListAJAX();
+    //document.getElementById("package_Selection").innerHTML = package
 }
 function getPackage(){
-    var package_list = ["Car","Scooty", "Bike", "Cycle","Skate","Aeroplane"];
+    //var package_list = ["Car","Scooty", "Bike", "Cycle","Skate","Aeroplane"];
+    var package_list =  getPackageListAJAX();
     for(var i = 0 ; i < package_list.length; i++){
         package += "<option value=" + package_list[i] + ">"  + package_list[i]  + "</option>"
     }
-    
+    //getPackageList();
     return;
+}
+
+function getPackageListAJAX() {
+  package = packageInitialize
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+	var packageList = null;
+    if (this.readyState == 4 && this.status == 200) {
+	packageList = JSON.parse(this.response)['object']
+	console.log(packageList);
+	for(var i = 0 ; i < packageList.length; i++){
+        package += "<option value=" + packageList[i] + ">"  + packageList[i]  + "</option>"
+       }
+      
+    }
+	console.log(package);
+	document.getElementById("package_Selection").innerHTML = package;
+	return;
+    
+  };
+  xhttp.open("GET", "http://localhost:8085/Request/getPackageListFromDB", false);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send();
+}
+
+function getApplicationListAJAX() {
+  var packageName = document.getElementById("package_Selection").value;
+  var applicationlink = "http://localhost:8085/Request/getApplicationListFromDB/" + packageName +"/" +  is_Terminal_User_flag;
+  console.log(applicationlink);
+  application = applicationInitialize 
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("GET", applicationlink, true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send();
+
+  xhttp.onreadystatechange = function() {
+	var applicationList = null;
+	//console.log(this.readyState);
+	//console.log(this.this.status);
+    if (this.readyState == 4 && this.status == 200) {
+	applicationList = JSON.parse(this.response)['object']
+	console.log(applicationList);
+	for(var i = 0 ; i < applicationList.length; i++){
+        application += "<option value=" + applicationList[i] + ">"  + applicationList[i]  + "</option>"
+       }
+      
+    }
+    document.getElementById("app_Selection").innerHTML = application;
+	return;
+    
+  };
+
 }
 
 
@@ -102,6 +162,7 @@ function display(isSelected){
     return;
 }
 function changeBlock(){
+		document.getElementById("app_Selection").innerHTML = applicationInitialize;
     //console.log(selection)
     if (selection == 0){
         //console.log("Selection is zero, collegue selected");
@@ -110,6 +171,7 @@ function changeBlock(){
     } 
     else{
         //console.log("Application seletcted");
+
         document.getElementById("Application_Selection").style.display ="block";
         document.getElementById("Colleague_Id_Selection").style.display ="none";
     }

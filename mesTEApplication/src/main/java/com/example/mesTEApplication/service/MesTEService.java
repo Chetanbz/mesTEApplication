@@ -39,25 +39,47 @@ public class MesTEService implements IMesTEService{
 	
 	@Override
 	public List<String> getPackageFromDB(){
-		List packageList = new ArrayList<>(Arrays.asList("Car","Scooty","Bike","Skate"));
+		List packageList = new ArrayList<>(Arrays.asList("HeavyVehicle","Car","Scooty","Bike","Skate"));
 		return packageList;
 		
 	}
 	
 	@Override
-	public List<String> getApplicationListFromDB(String packageName){
+	public List<String> getApplicationListFromDB(String packageName, int isTermialUser){
 		List<String> applicationList = null;
-		
+		System.out.println("Package Name is " + packageName +" IsTerminal User is set to " +  isTermialUser);		
 		if(packageName.equals("Car")){
 			applicationList = new ArrayList<>(Arrays.asList("Fortuner","Maruti","Alto","Swift"));
 		}
 		else if(packageName.equals("Bike")){
 			applicationList = new ArrayList<>(Arrays.asList("Pulser","CD110","Honda","Kawasaki"));
 		}
+		else {
+			applicationList = new ArrayList<>();
+		}
 		
 		return applicationList;
 	}
-	
+
+	@Override
+	public MesTERequestAccess autoapproveRequest(int reqId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MesTERequestAccess approveRequest(int reqId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MesTERequestAccess rejectRequest(int reqId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	
 	
 	

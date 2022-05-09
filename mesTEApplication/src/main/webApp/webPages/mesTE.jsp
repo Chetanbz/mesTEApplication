@@ -1,10 +1,9 @@
 <!DOCTYPE html> 
 <html>
     <head>
-        <link rel="stylesheet" href="/webCSS/mesTEpage.css">
+        <link rel="stylesheet" href="/webCSS/mesTEPage.css">
         <script src="/webJavascripts/mesTEPage.js"></script>
         <title>mesTE Application Access</title>
-
     </head>
     <body>
         <form   >
@@ -24,16 +23,13 @@
                 <label for="colleagueId_Box" title="User can get same application as his Colleague"> Select Colleague Id </label>
             </div>
             <div  id = "Application_Selection">
-                <label for="package_Selection" onchange="getApplication()" title="Selection Package for which you want access ex .. Andon, Terminal, MMLP">Select Package:</label>
-                <select id="package_Selection" name="package_Selection" size="1">
+                <label for="package_Selection"  title="Selection Package for which you want access ex .. Andon, Terminal, MMLP">Select Package:</label>
+                <select id="package_Selection" onchange="getApplicationListAJAX()" name="package_Selection" size="1">
                   
                 </select>
                 <label for="app_Selection" title="Select Application under mention package you can select All application or individaul Application " >Select Application:</label>
                 <select id="app_Selection" multiple  name="app_Selection" size="4">
-                  <option value="Jaguar">Jaguar</option>
-                  <option value="Activa">Activa</option>
-                  <option value="Jupitor">Jupitor</option>
-                  <option value="Bike">Bike</option>
+
                 </select>
             </div>
             <div id = "Colleague_Id_Selection">

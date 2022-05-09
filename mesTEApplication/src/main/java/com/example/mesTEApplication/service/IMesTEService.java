@@ -10,13 +10,20 @@ public interface IMesTEService {
 
 	public List<String> getPackageFromDB();
 	
-	public List<String> getApplicationListFromDB(String packageName);
 	
 	public List<MesTERequestAccess> getmesTERequestList();
 	
 	public MesTERequestAccess getmesTERequestById(int reqId);
 	
 	public MesTERequestAccess createRequestAccess(MesTEAccessDTO  mesTEAccessDTO);
+
+	public MesTERequestAccess autoapproveRequest(int reqId);
+
+	public MesTERequestAccess approveRequest(int reqId);
+
+	public MesTERequestAccess rejectRequest(int reqId);
+
+	public List<String> getApplicationListFromDB(String packageName, int isTerminalUser);
 	
 
 }

@@ -31,9 +31,10 @@ public class mesTEApplicationLogicController {
 	
 	}
 	
-	@RequestMapping("/getApplicationListFromDB/{packageName}")
-	public ResponseEntity<ResponseDTO> getApplicationList(@PathVariable("packageName") String packageName){
-		List <String> applicationListfromDB = mesTEService.getApplicationListFromDB(packageName);
+	@RequestMapping("/getApplicationListFromDB/{packageName}/{isTerminalUser}")
+	public ResponseEntity<ResponseDTO> getApplicationList(@PathVariable("packageName") String packageName, 
+			                                              @PathVariable("isTerminalUser") int isTerminalUser){
+		List <String> applicationListfromDB = mesTEService.getApplicationListFromDB(packageName,isTerminalUser);
 		ResponseDTO responseDTO = new ResponseDTO("get Application successful from DB", applicationListfromDB);
 		return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
 		
@@ -63,5 +64,31 @@ public class mesTEApplicationLogicController {
 		return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
 		
 	}
+	
+	@PostMapping("/autoapproveRequest/{reqId}")
+	public ResponseEntity<ResponseDTO> autoApproveRequestForNonCriticalApplication(@PathVariable("reqId") int reqId){
+		MesTERequestAccess  mesTERequestAccess = mesTEService.autoapproveRequest(reqId);
+		ResponseDTO responseDTO = new ResponseDTO("created request successfully from DB", "AutoApprove Request");
+		return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+		
+	}
+	
+	@PostMapping("/approveRequest/{reqId}")
+	public ResponseEntity<ResponseDTO> approveRequestForCriticalApplication(@PathVariable("reqId") int reqId,
+			                                                                 @RequestBody String comment ){
+		MesTERequestAccess  mesTERequestAccess = mesTEService.approveRequest(reqId);
+		ResponseDTO responseDTO = new ResponseDTO("created request successfully from DB", "ApproveRequest");
+		return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+		
+	}
+	@PostMapping("/rejectRequest/{reqId}")
+	public ResponseEntity<ResponseDTO> rjectRequestForCriticalApplication(@PathVariable("reqId") int reqId,
+			                                                                 @RequestBody String comment ){
+		MesTERequestAccess  mesTERequestAccess = mesTEService.rejectRequest(reqId);
+		ResponseDTO responseDTO = new ResponseDTO("created request successfully from DB", "ApproveRequest");
+		return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
+		
+	}
+
 
 }
