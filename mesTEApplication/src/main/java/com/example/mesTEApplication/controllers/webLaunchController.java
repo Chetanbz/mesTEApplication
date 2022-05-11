@@ -18,5 +18,10 @@ public class webLaunchController {
 		System.out.print("mesTE Page and user is " );
 		return "mesTE";
 	}
+	@GetMapping("/requestMesTEPage")
+	public String requestMesTEPage() {
+		System.out.print("Request mesTE Page is " );
+		return "allrequestPage";
+	}
 
 }

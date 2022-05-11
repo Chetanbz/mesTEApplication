@@ -3,14 +3,16 @@
     <head>
         <link rel="stylesheet" href="/webCSS/mesTEPage.css">
         <script src="/webJavascripts/mesTEPage.js"></script>
+        <!--<script type = "module" src="/AjaxMethod/ajaxCall.js"></script>-->
         <title>mesTE Application Access</title>
     </head>
     <body>
         <form   >
             <div id = "UserIDInfo">
                 <label for="UserId">UserID:</label>
-                <input type="text" id="Input_UserID" name="Input_UserID">
+                <input type="text" id="Input_UserID" name="Input_UserID"  onchange="checkTerminalUser()">
                 <a onclick="getUserDetails()" href="#"> GetUserDetails</a>
+                <div id = "UserInfo"></div>
             </div>
             <div id = "UserNameInfo">
                 <label for="UserName">UserName:</label>

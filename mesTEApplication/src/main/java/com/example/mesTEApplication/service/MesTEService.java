@@ -1,11 +1,14 @@
 package com.example.mesTEApplication.service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.mesTEApplication.model.ApplicationStatusDTO;
 import com.example.mesTEApplication.model.MesTEAccessDTO;
 import com.example.mesTEApplication.model.MesTERequestAccess;
 
@@ -31,11 +34,28 @@ public class MesTEService implements IMesTEService{
 		
 		MesTERequestAccess mesTERquestAccess = null;
 		mesTERquestAccess = new MesTERequestAccess(mesTERequestAccessList.size()+1, mesTEAccessDTO );
+		mesTERquestAccess = MesTEService.updateRequestAccessInfo(mesTERquestAccess);
 		mesTERequestAccessList.add(mesTERquestAccess);
 		
 		return mesTERquestAccess;
 		
 	}
+	
+	private static MesTERequestAccess updateRequestAccessInfo(MesTERequestAccess mesTERquestAccess ) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");   
+		mesTERquestAccess.localDate = LocalDate.now();
+		
+		List autoApproveApplications =  new ArrayList<>(Arrays.asList("Auto Approve","Maruti","Alto","Swift"));
+		List ApproveApplications =  mesTERquestAccess.applicationList;
+		List rejectedApproveApplications =  new ArrayList<>(Arrays.asList("Reject ","Bad","Alto","Swift"));
+		
+		ApplicationStatusDTO applicationStatus = new ApplicationStatusDTO(autoApproveApplications,ApproveApplications,rejectedApproveApplications);
+		mesTERquestAccess.applicationStatus = applicationStatus;
+		System.out.println(mesTERquestAccess.localDate);
+		return mesTERquestAccess;
+		
+	}
+	
 	
 	@Override
 	public List<String> getPackageFromDB(){

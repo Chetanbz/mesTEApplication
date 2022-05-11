@@ -1,11 +1,14 @@
 package com.example.mesTEApplication.model;
 
+import java.time.LocalDate;
 import java.util.List;
+
+import javax.persistence.Entity;
 
 public class MesTERequestAccess {
 	
 	public int mesTERequestAccessId;
-
+	public String loginId;
 	public String userId;
 	public String userName;
 	public int isTerminalUserFlag;
@@ -14,6 +17,8 @@ public class MesTERequestAccess {
 	public String packageName;
 	public List packageNameList;
 	public List applicationList;
+	public ApplicationStatusDTO applicationStatus;	
+	public LocalDate localDate;
 	
 	public MesTERequestAccess() {
 		
@@ -22,6 +27,7 @@ public class MesTERequestAccess {
 	
 	public MesTERequestAccess(int mesTERequestAccessId, MesTEAccessDTO mesTEAccessDTO) {
 		this.mesTERequestAccessId = mesTERequestAccessId;
+		this.loginId = mesTEAccessDTO.loginId;
 		this.userId = mesTEAccessDTO.userId;
 		this.userName = mesTEAccessDTO.userName;
 		this.isTerminalUserFlag = mesTEAccessDTO.isTerminalUserFlag;
@@ -31,7 +37,17 @@ public class MesTERequestAccess {
 		this.packageNameList = mesTEAccessDTO.packageNameList;
 		this.applicationList = mesTEAccessDTO.applicationList;
 		
+		//this.applicationStatus = new ApplicationStatusDTO();
+		
 	}
+	
+	public void MesTERequestAccessUpdate(ApplicationStatusDTO applicationStatus, LocalDate localDate ) {
+          this.applicationStatus = applicationStatus;
+          this.localDate = localDate;
+		
+	}
+	
+	
 	
 	public MesTERequestAccess(int mesTERequestAccessId, String userId, String userName, int isTerminalUserFlag,
 			int isApplicationSelectedFlag, String collegueId, String packageName, List packageNameList,
